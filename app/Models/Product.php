@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,4 +25,13 @@ class Product extends Model
         return $this->hasMany(Product_prop::class,'product_id');
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Verta::today($value)->format('%B %d، %Y');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Verta::today($value)->format('%B %d، %Y');
+    }
 }

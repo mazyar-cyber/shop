@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Province;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -69,5 +71,17 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function provinces()
+    {
+        $data=Province::all();
+        return $data;
+    }
+
+    public function cities($id)
+    {
+        $data=City::where('province_id',$id)->get();
+        return $data;
     }
 }

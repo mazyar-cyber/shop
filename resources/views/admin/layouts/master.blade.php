@@ -10,6 +10,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
+{{--    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/inline/ckeditor.js"></script>--}}
+{{--    <script src="/js/ckeditor.js"></script>--}}
+{{--    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/decoupled-document/ckeditor.js"></script>--}}
+
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/dist/css/bootstrap-theme.css">
 
@@ -342,7 +346,7 @@
                         <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-right info">
-                        <p>علیرضا حسینی زاده</p>
+                        <p>{{\Illuminate\Support\Facades\Auth::user()->name}}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
                     </div>
                 </div>
@@ -609,72 +613,7 @@
             <!-- Main content -->
             <section class="content">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <h3>150</h3>
-
-                                <p>سفارش جدید</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i
-                                    class="fa fa-arrow-circle-left"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                            <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                <p>افزایش امتیاز</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i
-                                    class="fa fa-arrow-circle-left"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow">
-                            <div class="inner">
-                                <h3>44</h3>
-
-                                <p>کاربران ثبت شده</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i
-                                    class="fa fa-arrow-circle-left"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-red">
-                            <div class="inner">
-                                <h3>65</h3>
-
-                                <p>بازدید جدید</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i
-                                    class="fa fa-arrow-circle-left"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                </div>
+               <dashboard></dashboard>
                 <!-- /.row -->
 
                 <!-- Main row -->

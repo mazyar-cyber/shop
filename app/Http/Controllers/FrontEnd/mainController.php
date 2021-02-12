@@ -1,28 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Basket;
+use App\Models\Brands;
+use App\Models\ProCat;
+use App\Models\Product;
+use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminUserController extends Controller
+class mainController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return string
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users=User::all();
-        return view('admin.users.index',compact('users'));
-    }
-
-    public function indexApi()
-    {
-        $users=User::all();
-        return count($users);
+        $products=Product::orderBy('created_at')->limit(4)->get();
+        $brands=Brands::all();
+        $cats=ProCat::limit(2)->with('product')->get();
+        $baskets=Basket::where('user_id',Auth::id())->with('product')->get();
+        return view('FrontEnd.main.index',compact(['products','brands','cats','baskets']));
     }
 
     /**
@@ -32,7 +34,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**

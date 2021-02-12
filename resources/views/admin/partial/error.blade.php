@@ -1,3 +1,3 @@
 @foreach($errors->all() as $e)
-    <p class="alert alert-error">{{$e}}</p>
+    <p class="alert alert-danger">{{$e}}</p>
 @endforeach

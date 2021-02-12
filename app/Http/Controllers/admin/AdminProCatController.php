@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProCatRequest;
 use App\Models\ProCat;
+use App\Models\Product_prop;
 use App\Models\ProductProperty;
 use App\Models\PropertyValue;
 use Illuminate\Http\Request;
@@ -162,8 +163,8 @@ class AdminProCatController extends Controller
     {
         $cat = \App\Models\ProCat::find($id);
         foreach ($cat->property as $prop) {
-            $propTitles[]=['name'=>$prop->title,'id'=>$prop->id];
+            $propTitles[] = ['name' => $prop->title, 'id' => $prop->id];
         }
-        return response()->json($propTitles,'200');
+        return response()->json($propTitles, '200');
     }
 }

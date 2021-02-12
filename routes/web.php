@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +19,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/', function () {
-    return view('welcome');
+Route::resource('/', \App\Http\Controllers\FrontEnd\mainController::class);
+Route::resource('/user', \App\Http\Controllers\FrontEnd\UserController::class);
+Route::get('/provinces', [\App\Http\Controllers\Auth\RegisterController::class, 'provinces'])->name('get.province');
+Route::get('/cities/{id}', [\App\Http\Controllers\Auth\RegisterController::class, 'cities'])->name('get.cities');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', function () {
+        $user = Auth::user();
+        return view("FrontEnd.Profile.index", compact('user'));
+    });
+    Route::resource('/basket',\App\Http\Controllers\FrontEnd\BasketController::class);
+    Route::get('/basket/add/{id}',[\App\Http\Controllers\FrontEnd\BasketController::class,'add'])->name('basket.add');
+    Route::get('/basket/delete/{id}',[\App\Http\Controllers\FrontEnd\BasketController::class,'deleteBasket'])->name('basket.delete');
 });
-
-use App\Http\Controllers\admin\AdminUserController;
-
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('users', AdminUserController::class);
     Route::resource('procat', \App\Http\Controllers\admin\AdminProCatController::class);
@@ -43,17 +53,25 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 Route::prefix('admin/api')->group(function () {
     Route::post('getAttr/{id}', [\App\Http\Controllers\admin\AdminProCatController::class, 'getAttr'])->name('getAttr');
+    Route::post('searchProduct', [\App\Http\Controllers\admin\AdminProductController::class, 'search'])->name('searchProduct');
+    Route::get('getUser', [\App\Http\Controllers\admin\AdminUserController::class, 'indexApi'])->name('getUser');
+    Route::get('getProducts', [\App\Http\Controllers\admin\AdminProductController::class, 'indexApi'])->name('getProduct');
+    Route::get('deleteProduct/{id}', [\App\Http\Controllers\admin\AdminProductController::class, 'delete'])->name('deleteProduct');
+    Route::post('deleteSelectedProduct', [\App\Http\Controllers\admin\AdminProductController::class, 'deleteSelectedProduct'])->name('deleteSelectedProduct');
 });
 //trying relation between models
-//Route::get('/product/{id}', function ($id) {
-////    $brand=\App\Models\Brands::find($id);
-//    $product = \App\Models\Product::find($id);
+Route::get('/product/{id}', function ($id) {
+//    $brand=\App\Models\Brands::find($id);
+    $product = \App\Models\Product::find($id);
+    $productProp = \App\Models\Product_prop::find($id);
+    return $product->created_at;
+
 //    return $product->propertyValue;
-////    $cat=\App\Models\ProCat::find($id);
-////     foreach ($cat->property as $prop){
-////         echo $prop->title.'..../';
-////     }
-//});
+//    $cat=\App\Models\ProCat::find($id);
+//     foreach ($cat->property as $prop){
+//         echo $prop->title.'..../';
+//     }
+});
 
 
 //laravel ui
@@ -61,6 +79,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout', function () {
     \Illuminate\Support\Facades\Auth::logout();
+    return redirect('/');
 });
 //laravel ui
 

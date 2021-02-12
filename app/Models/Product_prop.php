@@ -10,4 +10,9 @@ class Product_prop extends Model
     use HasFactory;
 
     protected $table = 'product_prop';
+
+    public function property()
+    {
+        return $this->hasOne(PropertyValue::class, 'property_id');
+    }
 }

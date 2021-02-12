@@ -16,7 +16,8 @@
         <!-- /.box-header -->
         <!-- form start -->
         <div class="col-md-6 col-md-offset-3">
-            <form class="form-horizontal" action="{{route('product.store')}}" method="post">
+            <form class="form-horizontal" action="{{route('product.store')}}" method="post"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                     <div class="form-group">
@@ -51,7 +52,8 @@
                         <label for="inputEmail3" class="col-sm-2 control-label"> قیمت</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder=" قیمت محصول را وارد کنید"
+                            <input type="text" class="form-control" id="inputEmail3"
+                                   placeholder=" قیمت محصول را وارد کنید"
                                    name="price" required>
                         </div>
                     </div>
@@ -61,8 +63,9 @@
                         <label for="inputEmail3" class="col-sm-2 control-label"> تخفیف</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder=" مقدار مبلغ تخفیف را اینجا وارد کنید"
-                                   name="discount_price" >
+                            <input type="text" class="form-control" id="inputEmail3"
+                                   placeholder=" مقدار مبلغ تخفیف را اینجا وارد کنید"
+                                   name="discount_price">
                         </div>
                     </div>
 
@@ -81,7 +84,7 @@
                         <div class="col-sm-10">
                             <select name="brand">
                                 @foreach($brands as $brand)
-                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                    <option value="{{$brand->id}}">{{$brand->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -96,6 +99,15 @@
                             <textarea name="description" class="form-control"></textarea>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"> عکس</label>
+
+                        <div class="col-sm-10">
+                            <input type="file" name="pic" class="form-control" required>
+                        </div>
+                    </div>
+
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <button type="submit" class="btn btn-app pull-left" name="btn"><i class="fa fa-save"></i>ذخیره
@@ -108,7 +120,22 @@
 @endsection
 <script>
     import Product from "../../../js/components/Product";
+
     export default {
         components: {Product}
     }
 </script>
+@section("script")
+    <script>
+        DecoupledEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endsection

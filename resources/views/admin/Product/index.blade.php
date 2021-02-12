@@ -22,23 +22,15 @@
             <div class="box">
                 <div class="box-header">
                     <h2 class="box-title">لیست محصولات</h2>
-                    @if (\Illuminate\Support\Facades\Session::has('subcat'))
-                        <div class="alert alert-error">{{Session('subcat')}}</div>
+                    @if (\Illuminate\Support\Facades\Session::has('product-delete'))
+                        <div class="alert alert-error">{{Session('product-delete')}}</div>
                     @endif
                     <br><br>
                     <a class="btn btn-app pull-left" href="{{route('product.create')}}">
                         <i class="fa fa-plus"></i> جدید
                     </a>
 
-                    <div class="box-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="جستجو">
 
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.box-header -->
                 {{--                {!! Form::open(['route' => 'product.deleteSelected', 'method' => 'DELETE']) !!}--}}
@@ -68,12 +60,15 @@
                             <th> تاریخ ایجاد</th>
                             <th> تاریخ به روز رسانی</th>
                             <th> ویرایش</th>
+                            <th> نمایش</th>
+                            <th> حذف</th>
                         </tr>
 
                         @foreach($products as $product)
                             <tr>
                                 <td><input class="checkBox" type="checkbox" name="checkBoxArray[]"
                                            value="{{$product->id}}"></td>
+                                {!! Form::close() !!}
 
                                 <td><a href="product/{{$product->id}}/edit">{{$product->title}}</a></td>
                                 <td>{{$product->sku}}</td>
@@ -89,23 +84,34 @@
                                 <td>{{$product->discount_price}}</td>
                                 <td><textarea readonly class="text-aqua">{{$product->description}}</textarea></td>
                                 <td>{{$product->brand->name}}</td>
-                                <td>{{$product->category->name}}</td>
+                                <td><a href="showProcatAttr">{{$product->category->name}}</a></td>
                                 <td>
-                                    {{\Hekmatinasser\Verta\Verta::today($product->created_at) }}
+                                    {{$product->created_at}}
                                 </td>
 
                                 <td>
-                                    {{\Hekmatinasser\Verta\Verta::today($product->updated_at) }}
+                                    {{($product->updated_at) }}
                                 </td>
+
                                 <td>
                                     <a href="product/{{$product->id}}/edit" class="btn btn-instagram">ویرایش</a>
                                 </td>
+                                <td>
+                                    <a href="product/{{$product->id}}" class="btn btn-info">نمایش</a>
+                                </td>
+                                <td>
+                                    {{ Form::open([ 'method'  => 'delete', 'route' => [ 'product.destroy', $product->id ] ]) }}
+                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                                    {{ Form::close() }}
 
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {!! Form::close() !!}
+                    <br><br>
+                   <product-list></product-list>
+
                 </div>
 
                 <!-- /.box-body -->
