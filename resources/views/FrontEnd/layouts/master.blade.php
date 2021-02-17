@@ -215,7 +215,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="checkout"><a href="cart.html" class="btn btn-primary"><i
+                                            <p class="checkout"><a href="/cart" class="btn btn-primary"><i
                                                         class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a
                                                     href="checkout.html" class="btn btn-primary"><i
                                                         class="fa fa-share"></i> تسویه حساب</a></p>

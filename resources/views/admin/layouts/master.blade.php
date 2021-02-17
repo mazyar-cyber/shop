@@ -14,7 +14,7 @@
 {{--    <script src="/js/ckeditor.js"></script>--}}
 {{--    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/decoupled-document/ckeditor.js"></script>--}}
 
-    <!-- Bootstrap 3.3.7 -->
+<!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/dist/css/bootstrap-theme.css">
 
     <!-- Bootstrap rtl -->
@@ -375,6 +375,45 @@
                             <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> داشبرد اول</a></li>
                         </ul>
                     </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list"></i>
+                            <span> کوپن ها</span>
+                            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('coupons.index')}}"><i class="fa fa-list-ol"></i> لیست کوپن ها</a>
+                            </li>
+                            <li><a href="{{route('coupons.create')}}"><i class="fa fa-circle-o"></i> اضافه نمودن کوپن ها
+                                </a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list"></i>
+                            <span>سبد خرید کاربران</span>
+                            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('adminBaskets.index')}}"><i class="fa fa-list-ol"></i> لیست سبدها</a>
+                            </li>
+                            <li><a href="{{route('procat.create')}}"><i class="fa fa-circle-o"></i> اضافه نمودن دسته
+                                    بندی
+                                    محصولات</a></li>
+                            <li><a href="{{route('procatAttr')}}"><i class="fa fa-circle-o"></i>تخصیص دادن ویژگی به دسته
+                                    بندی</a></li>
+                            <li><a href="{{route('showProcatAttr')}}"><i class="fa fa-circle-o"></i>لیست ویژگی های مربوط
+                                    به دسته بندی ها</a></li>
+                        </ul>
+                    </li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-list"></i>
@@ -613,7 +652,7 @@
             <!-- Main content -->
             <section class="content">
                 <!-- Small boxes (Stat box) -->
-               <dashboard></dashboard>
+                <dashboard></dashboard>
                 <!-- /.row -->
 
                 <!-- Main row -->

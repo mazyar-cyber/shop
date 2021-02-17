@@ -28,12 +28,18 @@ Route::middleware(['auth'])->group(function () {
         $user = Auth::user();
         return view("FrontEnd.Profile.index", compact('user'));
     });
-    Route::resource('/basket',\App\Http\Controllers\FrontEnd\BasketController::class);
-    Route::get('/basket/add/{id}',[\App\Http\Controllers\FrontEnd\BasketController::class,'add'])->name('basket.add');
-    Route::get('/basket/delete/{id}',[\App\Http\Controllers\FrontEnd\BasketController::class,'deleteBasket'])->name('basket.delete');
+    Route::resource('/basket', \App\Http\Controllers\FrontEnd\BasketController::class);
+    Route::get('/basket/add/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'add'])->name('basket.add');
+    Route::get('/basket/delete/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'deleteBasket'])->name('basket.delete');
+    Route::resource('/cart', \App\Http\Controllers\FrontEnd\CartController::class);
+    Route::post('/api/changeCart/{id}/{id2}', [\App\Http\Controllers\FrontEnd\CartController::class, 'changeCount'])->name('cart.changeCount');
+    Route::get('/getBasket', [\App\Http\Controllers\FrontEnd\CartController::class, 'getData'])->name('baskets.get');
+    Route::post('/checkCoupon', [\App\Http\Controllers\FrontEnd\CouponController::class,'check'])->name('check.coupon');
+    Route::post('/calcPrice',[\App\Http\Controllers\FrontEnd\CouponController::class,'calcPrice'])->name('calc.price');
 });
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function () {
     Route::resource('users', AdminUserController::class);
+    Route::resource('adminBaskets', \App\Http\Controllers\admin\AdminBasketContrller::class);
     Route::resource('procat', \App\Http\Controllers\admin\AdminProCatController::class);
     Route::get('procatAttr', [\App\Http\Controllers\admin\AdminProCatController::class, 'indexGiveAttributeToCategory'])->name('procatAttr');
     Route::post('giveProcatAttr', [\App\Http\Controllers\admin\AdminProCatController::class, 'giveAttributeToCategory'])->name('giveProcatAttr');
@@ -48,7 +54,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('proCatSelectedDelete', "\App\Http\Controllers\admin\AdminProCatController@selectedDelete")->name('proCat.deleteSelected');
     Route::resource('product', \App\Http\Controllers\admin\AdminProductController::class);
     Route::post('productSelectedDelete', "\App\Http\Controllers\admin\AdminProductController@selectedDelete")->name('product.deleteSelected');
-
+    Route::resource('coupons', \App\Http\Controllers\admin\AdminCouponController::class);
+    Route::get('changeCoupon/{status}/{id}', [\App\Http\Controllers\admin\AdminCouponController::class, 'changeStatus']);
 });
 
 Route::prefix('admin/api')->group(function () {
@@ -64,8 +71,11 @@ Route::get('/product/{id}', function ($id) {
 //    $brand=\App\Models\Brands::find($id);
     $product = \App\Models\Product::find($id);
     $productProp = \App\Models\Product_prop::find($id);
-    return $product->created_at;
-
+    $user = User::find($id);
+    return $user->coupon;
+//    return $user->baskets;
+//    return $product->created_at;
+//    return Auth::user();
 //    return $product->propertyValue;
 //    $cat=\App\Models\ProCat::find($id);
 //     foreach ($cat->property as $prop){
@@ -75,7 +85,7 @@ Route::get('/product/{id}', function ($id) {
 
 
 //laravel ui
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout', function () {
     \Illuminate\Support\Facades\Auth::logout();
