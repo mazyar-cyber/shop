@@ -19,6 +19,18 @@
     <link rel="stylesheet" type="text/css" href="/FrontEnd/css/responsive-rtl.css"/>
     <link rel="stylesheet" type="text/css" href="/FrontEnd/css/stylesheet-skin2.css"/>
 
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/js/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/js/bootstrap/css/bootstrap-rtl.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/owl.carousel.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/owl.transitions.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/js/swipebox/src/css/swipebox.min.css">
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/stylesheet-rtl.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/responsive-rtl.css"/>
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/css/stylesheet-skin2.css"/>
+
     <!-- CSS Part End-->
 </head>
 <body>
@@ -137,7 +149,7 @@
                 <div class="table-container">
                     <!-- Logo Start -->
                     <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
-                        <div id="logo"><a href="index.html"><img class="img-responsive"
+                        <div id="logo"><a href="/"><img class="img-responsive"
                                                                  src="/FrontEnd/image/logo.png" title="MarketShop"
                                                                  alt="MarketShop"/></a></div>
                     </div>
@@ -147,7 +159,7 @@
                         <div id="cart">
                             <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..."
                                     class="heading dropdown-toggle">
-                                <span class="cart-icon pull-left flip"></span>
+                                <a href="/cart"><span class="cart-icon pull-left flip"></span></a>
                                 <?php $totalPrice = 0;$totalPrice2 = 0;$totalDiscount = 0; foreach (\App\Models\Basket::where('user_id', Auth::id())->with('product')->get() as $b) {
                                     $price = (($b->product->price) - ($b->product->discount_price)) * ($b->count);
                                     $price2 = (($b->product->price)) * ($b->count);
@@ -242,146 +254,22 @@
         </header>
         <!-- Header End-->
         <!-- Main آقایانu Start-->
-
+        <?php
+        $categories = \App\Models\ProCat::where('parent_id', null)->get();
+        ?>
         <nav id="menu" class="navbar">
             <div class="navbar-header"><span class="visible-xs visible-sm"> منو <b></b></span></div>
             <div class="container">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
-                        <li class="dropdown"><a href="category.html">مد و زیبایی</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">آقایان <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته جدید </a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">بانوان</a></li>
-                                    <li><a href="category.html">دخترانه<span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته جدید</a></li>
-                                                <li><a href="category.html">زیردسته جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">پسرانه</a></li>
-                                    <li><a href="category.html">نوزاد</a></li>
-                                    <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">الکترونیکی</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">لپ تاپ <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a></li>
-                                                <li><a href="category.html">زیردسته های جدید </a></li>
-                                                <li><a href="category.html">زیردسته جدید </a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">رومیزی <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a></li>
-                                                <li><a href="category.html">زیردسته جدید </a></li>
-                                                <li><a href="category.html">زیردسته جدید </a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">دوربین <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">موبایل و تبلت <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">صوتی و تصویری <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a></li>
-                                                <li><a href="category.html">زیردسته جدید </a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">لوازم خانگی</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">کفش</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">آقایان</a></li>
-                                    <li><a href="category.html">بانوان <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a></li>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">دخترانه</a></li>
-                                    <li><a href="category.html">پسرانه</a></li>
-                                    <li><a href="category.html">نوزاد</a></li>
-                                    <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته ها</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">ساعت</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">ساعت مردانه</a></li>
-                                    <li><a href="category.html">ساعت زنانه</a></li>
-                                    <li><a href="category.html">ساعت بچگانه</a></li>
-                                    <li><a href="category.html">لوازم</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">زیبایی و سلامت</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">عطر و ادکلن</a></li>
-                                    <li><a href="category.html">آرایشی</a></li>
-                                    <li><a href="category.html">ضد آفتاب</a></li>
-                                    <li><a href="category.html">مراقبت از پوست</a></li>
-                                    <li><a href="category.html">مراقبت از چشم</a></li>
-                                    <li><a href="category.html">مراقبت از مو</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                        <li><a class="home_link" title="خانه" href="/">خانه</a></li>
+                        @foreach($categories as $cat)
+                            <li class="dropdown"><a href="/FrontCategory/{{$cat->id}}">{{$cat->name}}</a>
+                                @if(count($cat->childrenRecursive)>0)
+                                    @include('FrontEnd.menuRecursive.index',['data'=>$cat])
+                                @endif
+                            </li>
+                        @endforeach
                         <li class="menu_brands dropdown"><a href="#">برند ها</a>
                             <div class="dropdown-menu">
                                 <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img
@@ -421,47 +309,6 @@
 
                             </div>
                         </li>
-                        <li class="dropdown wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی</a>
-                            <div class="dropdown-menu custom_block">
-                                <ul>
-                                    <li>
-                                        <table>
-                                            <tbody>
-                                            <tr>
-                                                <td><img alt="" src="/FrontEnd/image/banner/cms-block.jpg"></td>
-                                                <td><img alt="" src="/FrontEnd/image/banner/responsive.jpg"></td>
-                                                <td><img alt="" src="/FrontEnd/image/banner/cms-block.jpg"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><h4>بلاک های محتوا</h4></td>
-                                                <td><h4>قالب واکنش گرا</h4></td>
-                                                <td><h4>پشتیبانی ویژه</h4></td>
-                                            </tr>
-                                            <tr>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html
-                                                    نوشتاری یا تصویری را در آن قرار دهید.
-                                                </td>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html
-                                                    نوشتاری یا تصویری را در آن قرار دهید.
-                                                </td>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html
-                                                    نوشتاری یا تصویری را در آن قرار دهید.
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه
-                                                            مطلب</a></strong></td>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه
-                                                            مطلب</a></strong></td>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه
-                                                            مطلب</a></strong></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
                         <li class="dropdown information-link"><a>برگه ها</a>
                             <div class="dropdown-menu">
                                 <ul>
@@ -485,7 +332,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="custom-link-right"><a href="#" target="_blank"> همین حالا بخرید!</a></li>
+                        <li class="custom-link-right"><a href="/cart" target="_blank"> همین حالا بخرید!</a></li>
                     </ul>
                 </div>
             </div>
@@ -639,6 +486,39 @@
 <script type="text/javascript" src="/FrontEnd/js/jquery.dcjqaccordion.min.js"></script>
 <script type="text/javascript" src="/FrontEnd/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/FrontEnd/js/custom.js"></script>
+
+<!-- JS Part Start-->
+<script type="text/javascript" src="/FrontEnd/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/jquery.easing-1.3.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/jquery.dcjqaccordion.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/jquery.elevateZoom-3.0.8.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/swipebox/lib/ios-orientationchange-fix.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/swipebox/src/js/jquery.swipebox.min.js"></script>
+<script type="text/javascript" src="/FrontEnd/js/custom.js"></script>
+<script type="text/javascript">
+    // Elevate Zoom for Product Page image
+    $("#zoom_01").elevateZoom({
+        gallery: 'gallery_01',
+        cursor: 'pointer',
+        galleryActiveClass: 'active',
+        imageCrossfade: true,
+        zoomWindowFadeIn: 500,
+        zoomWindowFadeOut: 500,
+        zoomWindowPosition: 11,
+        lensFadeIn: 500,
+        lensFadeOut: 500,
+        loadingIcon: 'image/progress.gif'
+    });
+    //////pass the images to swipebox
+    $("#zoom_01").bind("click", function (e) {
+        var ez = $('#zoom_01').data('elevateZoom');
+        $.swipebox(ez.getGalleryList());
+        return false;
+    });
+</script>
+<!-- JS Part End-->
 <script src="{{asset('/js/app.js')}}"></script>
 <!-- JS Part End-->
 

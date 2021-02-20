@@ -23,12 +23,14 @@ Route::resource('/', \App\Http\Controllers\FrontEnd\mainController::class);
 Route::resource('/user', \App\Http\Controllers\FrontEnd\UserController::class);
 Route::get('/provinces', [\App\Http\Controllers\Auth\RegisterController::class, 'provinces'])->name('get.province');
 Route::get('/cities/{id}', [\App\Http\Controllers\Auth\RegisterController::class, 'cities'])->name('get.cities');
+Route::resource('/FrontCategory',\App\Http\Controllers\FrontEnd\CategoryController::class);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {
         $user = Auth::user();
         return view("FrontEnd.Profile.index", compact('user'));
     });
     Route::resource('/basket', \App\Http\Controllers\FrontEnd\BasketController::class);
+    Route::resource('/FrontProduct',\App\Http\Controllers\FrontEnd\ProductController::class);
     Route::get('/basket/add/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'add'])->name('basket.add');
     Route::get('/basket/delete/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'deleteBasket'])->name('basket.delete');
     Route::resource('/cart', \App\Http\Controllers\FrontEnd\CartController::class);
@@ -66,13 +68,21 @@ Route::prefix('admin/api')->group(function () {
     Route::get('deleteProduct/{id}', [\App\Http\Controllers\admin\AdminProductController::class, 'delete'])->name('deleteProduct');
     Route::post('deleteSelectedProduct', [\App\Http\Controllers\admin\AdminProductController::class, 'deleteSelectedProduct'])->name('deleteSelectedProduct');
 });
+
+Route::prefix("frontEnd/api")->group(function (){
+    Route::get('getCatProduct/{id}',[\App\Http\Controllers\FrontEnd\CategoryController::class,'getProduct'])->name('apiGet.productCat');
+    Route::get('getCatSortedProduct/{id}/{col}/{page}',[\App\Http\Controllers\FrontEnd\CategoryController::class,'getSortedProduct'])->name('apiGet.productSortCat');
+});
+
 //trying relation between models
 Route::get('/product/{id}', function ($id) {
 //    $brand=\App\Models\Brands::find($id);
     $product = \App\Models\Product::find($id);
     $productProp = \App\Models\Product_prop::find($id);
     $user = User::find($id);
-    return $user->coupon;
+    $cat=\App\Models\ProCat::find($id);
+    return $cat->childrenRecursive;
+//    return $user->coupon;
 //    return $user->baskets;
 //    return $product->created_at;
 //    return Auth::user();

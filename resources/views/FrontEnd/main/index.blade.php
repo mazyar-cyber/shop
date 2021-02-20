@@ -53,7 +53,7 @@
                                 @foreach($products as $product)
                                 <div class="owl-item" style="width: 228px;">
                                     <div class="product-thumb clearfix">
-                                        <div class="image"><a href="product.html"><img
+                                        <div class="image"><a href="{{route('FrontProduct.show',$product->slug)}}"><img
                                                     src="/storage/photos/product/{{$product->photo_path}}"
                                                     alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه"
                                                     class="img-responsive"></a></div>
