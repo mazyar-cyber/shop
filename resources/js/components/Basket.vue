@@ -27,7 +27,8 @@
                             <span class="input-group-btn">
                         <button type="submit" data-toggle="tooltip" title="بروزرسانی" class="btn btn-primary"
                                 @click="refreshData(basket.count,basket.id)"><i class="fa fa-refresh"></i></button>
-                        <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger" onClick=""><i
+                        <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger"
+                                @click="deleteData(basket.id)"><i
                             class="fa fa-times-circle"></i></button>
                         </span></div>
                     </td>
@@ -54,23 +55,36 @@
                 baskets: [],
                 basketCount: null,
                 allBaskets: [],
+                qtyIsZero: false,
             }
         },
         methods: {
             refreshData(count, id) {
-                HttpService.post('/api/changeCart/' + count + '/' + id)
-                    .then(resp => {
-                        console.log(resp.data);
-                        Notification.success('تعداد سفارش شما با موفقیت تغییر کرد');
-                        this.getData();
-                    })
-                    .catch(error => console.log(error));
+                if (count <= 0) {
+                    this.qtyIsZero = true;
+                    Notification.error('تعداد سفارش شما باید از صفر بزرگتر باشد');
+                    this.getData();
+                } else {
+                    HttpService.post('/api/changeCart/' + count + '/' + id)
+                        .then(resp => {
+                            console.log(resp.data);
+                            Notification.success('تعداد سفارش شما با موفقیت تغییر کرد');
+                            this.getData();
+                        })
+                        .catch(error => console.log(error));
+                }
             },
             getData() {
                 HttpService.get('/getBasket').then(resp => {
                     console.log(resp.data);
                     this.allBaskets = resp.data;
                 }).catch(error => console.error(error.data));
+            },
+            deleteData(id) {
+                HttpService.get('/frontEnd/api/deleteBasket/' + id).then(response => {
+                    console.log(response.data);
+                    this.getData();
+                }).catch(error => console.error(error));
             }
         },
         created() {

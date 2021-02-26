@@ -4,17 +4,38 @@
         <li><a href="index.html"><i class="fa fa-home"></i></a></li>
         <li><a href="cart.html">سبد خرید</a></li>
     </ul>
+    @if (\Illuminate\Support\Facades\Session::has('payment-error'))
+        <div class="alert alert-warning">
+            {{session('payment-error')}}
+        </div>
+    @endif
+
+    @if (\Illuminate\Support\Facades\Session::has('payment-successful'))
+        <div class="alert alert-success">
+            {{session('payment-successful')}}
+        </div>
+    @endif
+
     @if (\Illuminate\Support\Facades\Session::has('coupon-expired'))
         <div class="alert alert-warning">
             {{session('coupon-expired')}}
         </div>
     @endif
+
+    @if (\Illuminate\Support\Facades\Session::has('no-basket'))
+        <div class="alert alert-warning">
+            {{session('no-basket')}}
+        </div>
+    @endif
+
     @if (\Illuminate\Support\Facades\Session::has('coupon-null'))
         <div class="alert alert-danger">
             {{session('coupon-null')}}
         </div>
     @endif
-    <div class="alert alert-info">توجه داشته باشید درصورت عوض کردن تعداد محصول حتما دکمه بروز رسانی را کلیک کنید</div>
+    <div class="alert alert-info">توجه داشته باشید درصورت عوض کردن تعداد محصول حتما دکمه زرد رنگ بروز رسانی را کلیک
+        کنید
+    </div>
     <div class="row">
         <!--Middle Part Start-->
         <div id="app">
@@ -61,7 +82,12 @@
                 <price-table></price-table>
                 <div class="buttons">
                     <div class="pull-left"><a href="index.html" class="btn btn-default">ادامه خرید</a></div>
-                    <div class="pull-right"><a href="checkout.html" class="btn btn-primary">تسویه حساب</a></div>
+                    <div class="pull-right">
+                        <form action="/order" method="post">
+                            @csrf
+                            <input type="submit" value="تسویه حساب" class="btn btn-primary">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

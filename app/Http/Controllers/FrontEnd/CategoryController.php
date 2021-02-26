@@ -5,6 +5,8 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\ProCat;
 use App\Models\Product;
+use App\Models\Product_prop;
+use App\Models\PropertyValue;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -100,5 +102,42 @@ class CategoryController extends Controller
         $sort = $expD[1];
         $products = Product::where('cat_id', $id)->with('category')->orderBy($col, $sort)->paginate($page);
         return $products;
+    }
+
+    public function getProps($id)
+    {
+        $cat = ProCat::find($id);
+        $props = $cat->property;
+        return $props;
+    }
+
+    public function searchProp(Request $request, $id,$page)
+    {
+        $cat = ProCat::find($id);
+        foreach ($request->all() as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+        foreach ($cat->product as $product) {
+            $products_id[] = $product->id;
+        }
+        $answer = Product_prop::whereIn('title', $values)->whereIn('product_id', $products_id)->whereIn('property_id', $keys)->get();
+        $products = Product::whereHas('category', function ($q) use ($id) {
+            $q->where('id', $id);
+        })->whereHas('propertyValue', function ($q) use ($keys, $values) {
+            $q->whereIn('title',$values);
+        })->paginate($page);
+        return $products;
+//        foreach ($cat->product as $product) {
+//            foreach ($request->all() as $key=>$value) {
+//                $array= Product_prop::where('product_id', $product->id)->where('title', $value)->where('property_id',$key)->with('product')->with('property')->first();
+//                if ($array){
+//                    $products[]=$array->product;
+//                    $answers[]=$array;
+//                }
+//            }
+//        }
+//        $data=[$answers,$products];
+//        return $answers;
     }
 }
