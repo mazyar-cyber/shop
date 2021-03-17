@@ -8,6 +8,7 @@
     <title>مارکت شاپ - قالب HTML فروشگاهی</title>
     <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
     <!-- CSS Part Start-->
+    <link rel="stylesheet" href="{{asset('/css/font-awesome.min.css')}}">
     <link rel="stylesheet" type="text/css" href="/FrontEnd/js/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/FrontEnd/js/bootstrap/css/bootstrap-rtl.min.css"/>
     <link rel="stylesheet" type="text/css" href="/FrontEnd/css/font-awesome/css/font-awesome.min.css"/>
@@ -150,8 +151,8 @@
                     <!-- Logo Start -->
                     <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
                         <div id="logo"><a href="/"><img class="img-responsive"
-                                                                 src="/FrontEnd/image/logo.png" title="MarketShop"
-                                                                 alt="MarketShop"/></a></div>
+                                                        src="/FrontEnd/image/logo.png" title="MarketShop"
+                                                        alt="MarketShop"/></a></div>
                     </div>
                     <!-- Logo End -->
                     <!-- Mini Cart Start-->
@@ -168,7 +169,11 @@
                                     $totalPrice2 = $price2 + $totalPrice2;
                                     $totalDiscount = $discount + $totalDiscount;
                                 } ?>
-                                <span id="cart-total">{{count(\App\Models\Basket::where('user_id',Auth::id())->with('product')->get())}} آیتم - {{number_format( $totalPrice)}} تومان</span>
+                                @if(\Illuminate\Support\Facades\Auth::check())
+                                    <span id="cart-total">{{count(\App\Models\Basket::where('user_id',Auth::id())->with('product')->get())}} آیتم - {{number_format( $totalPrice)}} تومان</span>
+                                @else
+                                    <span>شما هنوز ثبت نام نکرده اید</span>
+                                @endif
                             </button>
                             @if(\Illuminate\Support\Facades\Auth::check())
                                 <ul class="dropdown-menu">

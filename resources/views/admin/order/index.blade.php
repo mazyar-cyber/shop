@@ -40,19 +40,22 @@
 
                                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                     aria-sort="ascending" aria-label="موتور رندر: activate to sort column descending"
-                                    style="width: 167px;">مقدار فروش
+                                    style="width: 167px;">مقدار خرید
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-label="مرورگر: activate to sort column ascending" style="width: 313px;">کاربر
+                                    aria-label="مرورگر: activate to sort column ascending" style="width: 313px;">خریدار
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                     aria-label="شماره تلفن: activate to sort column ascending" style="width: 289px;">
                                     محصولات
                                 </th>
-{{--                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"--}}
-{{--                                    aria-label="شماره تلفن: activate to sort column ascending" style="width: 289px;">--}}
-{{--                                    تعداد--}}
-{{--                                </th>--}}
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="شماره تلفن: activate to sort column ascending" style="width: 289px;">
+                                    وضعیت پرداخت
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="شماره تلفن: activate to sort column ascending" style="width: 289px;">
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -60,14 +63,25 @@
                                 <tr role="row" class="even">
                                     <td>{{$key+1}}</td>
                                     <td>{{number_format( $order->amount)}}</td>
-                                    <td>{{$order->user->name}}  <span>{{$order->user->lastname}}</span></td>
+                                    <td>{{$order->user->name}} <span>{{$order->user->lastname}}</span></td>
                                     <td>
                                         {{--                                      {{foreach($products=\App\Models\Order_Product::where('order_id',$order->id)->get() as $product)}}--}}
                                         @foreach(\App\Models\Order_Product::where('order_id',$order->id)->get() as $pivot)
-                                            <span>{{$pivot->product->title}}</span>
+                                            <a href="/admin/product/{{$pivot->product->id}}"><span>{{$pivot->product->title}}</span></a>
                                             <span style="color: #0b3e6f">به تعداد:{{$pivot->qty}}</span>
                                             <span>||</span>
                                         @endforeach
+                                    </td>
+                                    <td>
+                                        @if($order->status==1)
+                                            <span class="btn btn-success">پرداخت شده</span>
+                                        @else
+                                            <span class="btn btn-danger">پرداخت نشده</span>
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        <a href="/admin/order/{{$order->id}}" class="btn btn-info">نمایش</a>
                                     </td>
 
                                 </tr>

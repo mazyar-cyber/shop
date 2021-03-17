@@ -49,7 +49,9 @@ class AdminOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Orders::with(['user.address.province', 'user.address.city', 'product.product'])->whereId($id)->get();
+        return view('admin.order.show', compact('order'));
+//        return $order;
     }
 
     /**

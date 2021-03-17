@@ -1,6 +1,12 @@
 <template>
     <div>
-        <div class="table-responsive">
+        <!--        <div class="alert alert-warning" v-show="noData">سبد خرید شما خالی است</div>-->
+        <div class="table-responsive" v-if="!noData">
+            <h1 class="title">سبد خرید</h1>
+            <div class="alert alert-info">توجه داشته باشید درصورت عوض کردن تعداد محصول حتما دکمه زرد رنگ بروز رسانی را
+                کلیک
+                کنید
+            </div>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -56,6 +62,7 @@
                 basketCount: null,
                 allBaskets: [],
                 qtyIsZero: false,
+                noData: false,
             }
         },
         methods: {
@@ -78,6 +85,10 @@
                 HttpService.get('/getBasket').then(resp => {
                     console.log(resp.data);
                     this.allBaskets = resp.data;
+                    if (this.allBaskets.length === 0) {
+                        this.noData = true;
+                        Notification.error('سبد خرید شما خالی است');
+                    }
                 }).catch(error => console.error(error.data));
             },
             deleteData(id) {

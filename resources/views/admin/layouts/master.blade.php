@@ -6,7 +6,17 @@
     <title>داشبرد | کنترل پنل مدیریت</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    {{--    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>--}}
+    {{--    <script src="{{asset('js/ckeditor.js')}}" ></script>--}}
+    {{--    <script src="{{asset('js/Dckeditor.js')}}" ></script>--}}
+    <script src="{{asset('js/4ckeditor.js')}}"></script>
+    <script src="{{asset('js/tinymce.min.js')}}" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
@@ -70,13 +80,6 @@
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-
-
-                <!-- Delete This after download -->
-                <a href="https://github.com/hosseinizadeh/AdminLTE_Persian" class="btn hidden-xs"
-                   style="margin:6px 100px;padding:9px 50px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF">دانلود
-                    رایگان قالب</a>
-                <!-- End Delete-->
 
 
                 <div class="navbar-custom-menu">
@@ -511,121 +514,28 @@
                         </ul>
                     </li>
 
+
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>اشیای گرافیکی</span>
+                            <i class="fa fa-mail-reply-all"></i>
+                            <span>ایمیل ها</span>
                             <span class="pull-left-container">
               <i class="fa fa-angle-right pull-left"></i>
             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/pages/UI/general.html"><i class="fa fa-circle-o"></i> عمومی</a></li>
-                            <li><a href="/pages/UI/icons.html"><i class="fa fa-circle-o"></i> آیکون</a></li>
-                            <li><a href="/pages/UI/buttons.html"><i class="fa fa-circle-o"></i> دکمه</a></li>
-                            <li><a href="/pages/UI/sliders.html"><i class="fa fa-circle-o"></i> اسلایدر</a></li>
-                            <li><a href="/pages/UI/timeline.html"><i class="fa fa-circle-o"></i> تایم لاین</a></li>
-                            <li><a href="/pages/UI/modals.html"><i class="fa fa-circle-o"></i> مدال</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-edit"></i> <span>فرم ها</span>
-                            <span class="pull-left-container">
-              <i class="fa fa-angle-right pull-left"></i>
-            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/pages/forms/general.html"><i class="fa fa-circle-o"></i> اجزای عمومی</a></li>
-                            <li><a href="/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> پیشرفته</a></li>
-                            <li><a href="/pages/forms/editors.html"><i class="fa fa-circle-o"></i> ویرایشگر</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-table"></i> <span>جداول</span>
-                            <span class="pull-left-container">
-              <i class="fa fa-angle-right pull-left"></i>
-            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/pages/tables/simple.html"><i class="fa fa-circle-o"></i> جدول ساده</a></li>
-                            <li><a href="/pages/tables/data.html"><i class="fa fa-circle-o"></i> جدول داده</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/pages/calendar.html">
-                            <i class="fa fa-calendar"></i> <span>تقویم</span>
-                            <span class="pull-left-container">
-              <small class="label pull-left bg-red">۳</small>
-              <small class="label pull-left bg-blue">۱۷</small>
-            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/mailbox/mailbox.html">
-                            <i class="fa fa-envelope"></i> <span>ایمیل ها</span>
-                            <span class="pull-left-container">
-              <small class="label pull-left bg-yellow">۱۲</small>
-              <small class="label pull-left bg-green">۱۶</small>
-              <small class="label pull-left bg-red">۵</small>
-            </span>
-                        </a>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-folder"></i> <span>مثال ها</span>
-                            <span class="pull-left-container">
-              <i class="fa fa-angle-right pull-left"></i>
-            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/pages/examples/invoice.html"><i class="fa fa-circle-o"></i> سفارش</a></li>
-                            <li><a href="/pages/examples/profile.html"><i class="fa fa-circle-o"></i> پروفایل</a></li>
-                            <li><a href="/pages/examples/login.html"><i class="fa fa-circle-o"></i> صفحه ورود</a></li>
-                            <li><a href="/pages/examples/register.html"><i class="fa fa-circle-o"></i> ثبت نام</a></li>
-                            <li><a href="/pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> قفل صفحه</a>
+                            <li><a href="{{route('email.index')}}"><i class="fa fa-list-ol"></i>
+                                    لیست ایمیل ها</a>
                             </li>
-                            <li><a href="/pages/examples/404.html"><i class="fa fa-circle-o"></i> ارور ۴۰۴</a></li>
-                            <li><a href="/pages/examples/500.html"><i class="fa fa-circle-o"></i> ارور ۵۰۰</a></li>
-                            <li><a href="/pages/examples/blank.html"><i class="fa fa-circle-o"></i> صفحه خالی</a></li>
-                            <li><a href="/pages/examples/pace.html"><i class="fa fa-circle-o"></i> صفحه سریع</a></li>
+                            <li><a href="{{route('email.create')}}"><i class="fa fa-plus"></i>ارسال ایمیل
+                                </a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-share"></i> <span>چندسطحی</span>
-                            <span class="pull-left-container">
-              <i class="fa fa-angle-right pull-left"></i>
-            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> سطح اول</a></li>
-                            <li class="treeview">
-                                <a href="#"><i class="fa fa-circle-o"></i> سطح اول
-                                    <span class="pull-left-container">
-                  <i class="fa fa-angle-right pull-left"></i>
-                </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> سطح دوم</a></li>
-                                    <li class="treeview">
-                                        <a href="#"><i class="fa fa-circle-o"></i> سطح دوم
-                                            <span class="pull-left-container">
-                      <i class="fa fa-angle-right pull-left"></i>
-                    </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="#"><i class="fa fa-circle-o"></i> سطح سوم</a></li>
-                                            <li><a href="#"><i class="fa fa-circle-o"></i> سطح سوم</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i> سطح اول</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>مستندات</span></a></li>
+
+
+                    <li><a href="/admin/order"><i class="fa  fa-money"></i> <span>سفارشات</span></a></li>
+
+
                     <li class="header">برچسب ها</li>
                     <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>مهم</span></a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>هشدار</span></a></li>

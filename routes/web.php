@@ -23,23 +23,29 @@ Route::resource('/', \App\Http\Controllers\FrontEnd\mainController::class);
 Route::resource('/user', \App\Http\Controllers\FrontEnd\UserController::class);
 Route::get('/provinces', [\App\Http\Controllers\Auth\RegisterController::class, 'provinces'])->name('get.province');
 Route::get('/cities/{id}', [\App\Http\Controllers\Auth\RegisterController::class, 'cities'])->name('get.cities');
-Route::resource('/FrontCategory',\App\Http\Controllers\FrontEnd\CategoryController::class);
+Route::resource('/FrontCategory', \App\Http\Controllers\FrontEnd\CategoryController::class);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {
         $user = Auth::user();
-        return view("FrontEnd.Profile.index", compact('user'));
+        $orders = \App\Models\Orders::where('user_id', Auth::id())->with('product.product')->get();
+//        return $orders;
+        return view("FrontEnd.Profile.index", compact(['user', 'orders']));
     });
     Route::resource('/basket', \App\Http\Controllers\FrontEnd\BasketController::class);
-    Route::resource('/FrontProduct',\App\Http\Controllers\FrontEnd\ProductController::class);
+    Route::resource('/FrontProduct', \App\Http\Controllers\FrontEnd\ProductController::class);
     Route::get('/basket/add/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'add'])->name('basket.add');
     Route::get('/basket/delete/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'deleteBasket'])->name('basket.delete');
     Route::resource('/cart', \App\Http\Controllers\FrontEnd\CartController::class);
     Route::post('/api/changeCart/{id}/{id2}', [\App\Http\Controllers\FrontEnd\CartController::class, 'changeCount'])->name('cart.changeCount');
     Route::get('/getBasket', [\App\Http\Controllers\FrontEnd\CartController::class, 'getData'])->name('baskets.get');
-    Route::post('/checkCoupon', [\App\Http\Controllers\FrontEnd\CouponController::class,'check'])->name('check.coupon');
-    Route::post('/calcPrice',[\App\Http\Controllers\FrontEnd\CouponController::class,'calcPrice'])->name('calc.price');
+    Route::post('/checkCoupon', [\App\Http\Controllers\FrontEnd\CouponController::class, 'check'])->name('check.coupon');
+    Route::post('/calcPrice', [\App\Http\Controllers\FrontEnd\CouponController::class, 'calcPrice'])->name('calc.price');
+    Route::resource('/order', \App\Http\Controllers\FrontEnd\OrderController::class);
+    Route::get("/payment/{id}", [App\Http\Controllers\FrontEnd\PaymentController::class, 'verify'])->name('payment.verify');
 });
 Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function () {
+    Route::resource('email',\App\Http\Controllers\admin\AdminEmailController::class);
+    Route::resource('order', \App\Http\Controllers\admin\AdminOrderController::class);
     Route::resource('users', AdminUserController::class);
     Route::resource('adminBaskets', \App\Http\Controllers\admin\AdminBasketContrller::class);
     Route::resource('procat', \App\Http\Controllers\admin\AdminProCatController::class);
@@ -69,9 +75,14 @@ Route::prefix('admin/api')->group(function () {
     Route::post('deleteSelectedProduct', [\App\Http\Controllers\admin\AdminProductController::class, 'deleteSelectedProduct'])->name('deleteSelectedProduct');
 });
 
-Route::prefix("frontEnd/api")->group(function (){
-    Route::get('getCatProduct/{id}',[\App\Http\Controllers\FrontEnd\CategoryController::class,'getProduct'])->name('apiGet.productCat');
-    Route::get('getCatSortedProduct/{id}/{col}/{page}',[\App\Http\Controllers\FrontEnd\CategoryController::class,'getSortedProduct'])->name('apiGet.productSortCat');
+Route::prefix("frontEnd/api")->group(function () {
+    Route::get('getCatProduct/{id}', [\App\Http\Controllers\FrontEnd\CategoryController::class, 'getProduct'])->name('apiGet.productCat');
+    Route::get('getCatProps/{id}', [\App\Http\Controllers\FrontEnd\CategoryController::class, 'getProps'])->name('apiGet.productProps');
+    Route::post('getSearchProps/{id}/{page}', [\App\Http\Controllers\FrontEnd\CategoryController::class, 'searchProp'])->name('apiGet.searchProps');
+    Route::get('getCatSortedProduct/{id}/{col}/{page}', [\App\Http\Controllers\FrontEnd\CategoryController::class, 'getSortedProduct'])->name('apiGet.productSortCat');
+    Route::get('deleteBasket/{id}', [\App\Http\Controllers\FrontEnd\BasketController::class, 'deleteBasket'])->middleware('auth');
+    Route::get('getProductLike/{id}', [\App\Http\Controllers\FrontEnd\ProductLikeController::class, 'getProductLike'])->name('product.like');
+    Route::get('likeProduct/{id}/{param}', [\App\Http\Controllers\FrontEnd\ProductLikeController::class, 'like']);
 });
 
 //trying relation between models
@@ -80,8 +91,19 @@ Route::get('/product/{id}', function ($id) {
     $product = \App\Models\Product::find($id);
     $productProp = \App\Models\Product_prop::find($id);
     $user = User::find($id);
-    $cat=\App\Models\ProCat::find($id);
-    return $cat->childrenRecursive;
+    $cat = \App\Models\ProCat::find($id);
+    $products = \App\Models\Product::where('cat_id', $id)->get();
+    foreach ($products as $product) {
+        foreach ($product->propertyValue as $value) {
+            if ($value->title == 'نخ') {
+                echo '1.';
+            }
+        }
+        $property[] = $product->propertyValue;
+
+    }
+//    return $property;
+//    return $cat->childrenRecursive;
 //    return $user->coupon;
 //    return $user->baskets;
 //    return $product->created_at;

@@ -33,14 +33,10 @@
             {{session('coupon-null')}}
         </div>
     @endif
-    <div class="alert alert-info">توجه داشته باشید درصورت عوض کردن تعداد محصول حتما دکمه زرد رنگ بروز رسانی را کلیک
-        کنید
-    </div>
     <div class="row">
         <!--Middle Part Start-->
         <div id="app">
             <div id="content" class="col-sm-12">
-                <h1 class="title">سبد خرید</h1>
                 <basket :data="{{$baskets}}"></basket>
                 <h2 class="subtitle">حالا مایلید چه کاری انجام دهید؟</h2>
                 <p>در صورتی که کد تخفیف در اختیار دارید میتوانید از آن در اینجا استفاده کنید.</p>
