@@ -61,8 +61,7 @@ class AdminEmailController extends Controller
             $user = User::find($userId);
             $data = ['subject' => $request->subject, 'text' => $request->text,
                 'replyTo' => $request->replyTo, 'user' => $user, 'email' => $user->email,
-                'email_id' => $email->id];
-//            SendEmailToUsersJob::dispatch($data)->delay(now()->addMinutes(3));
+                'user_id' => $userId, 'email_id' => $email->id];
             $job = new SendEmailToUsersJob($data);
             $job->delay($start->addSeconds(30));
             dispatch($job);

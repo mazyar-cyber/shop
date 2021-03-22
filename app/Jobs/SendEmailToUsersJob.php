@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\SendMailToUser;
 use App\Models\Email;
+use App\Models\Email_User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,8 +39,8 @@ class SendEmailToUsersJob implements ShouldQueue
     {
         Mail::to($this->data['email'])
             ->send(new SendMailToUser($this->data));
-        $email = Email::find($this->data['email_id']);
-        $email->status = '1';
-        $email->save();
+        $email_User = Email_User::where('user_id', $this->data['user_id'])->where('email_id', $this->data['email_id'])->first();
+        $email_User->status = '1';
+        $email_User->save();
     }
 }

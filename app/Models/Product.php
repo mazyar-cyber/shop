@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ProductView;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,4 +35,9 @@ class Product extends Model
     {
         return Verta::today($value)->format('%B %d، %Y');
     }
+
+//    retrieved//creating//created//updating//updated//saving//saved/deleting//deleted//restoring//restored
+//    protected $dispatchesEvents=[
+//        'retrieved'=>ProductView::class,
+//    ];
 }
