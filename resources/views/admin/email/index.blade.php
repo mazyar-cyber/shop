@@ -54,9 +54,7 @@
                             <th>موضوع</th>
                             <th>توضیحات</th>
                             <th>ایمیل پاسخگویی</th>
-                            <th>وضعیت</th>
                             <th>تاریخ</th>
-                            <th> ویرایش</th>
                         </tr>
 
                         @foreach($emails as $email)
@@ -68,17 +66,9 @@
 
                                 <td>{!! (\Illuminate\Support\Str::limit($email->text, 121, '...')) !!}</td>
                                 <td>{{$email->replyTo}}</td>
-                                @if($email->status==1)
-                                    <td>ارسال شده</td>
-                                @else
-                                    <td><span style="color: red">ارسال نشده </span></td>
-                                @endif
+
                                 <td>{{\Hekmatinasser\Verta\Verta::today($email->created_at)}}</td>
 
-                                <td>
-                                    <a href="email/{{$email->id}}/edit"
-                                       class="btn btn-instagram">ویرایش</a>
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>
