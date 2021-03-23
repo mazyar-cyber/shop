@@ -50,7 +50,7 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $relatedProducts = Product::where('cat_id', $product->id)->get();
-//        event(new ProductView($product->id));
+        event(new ProductView($product->id));
         return view('FrontEnd.Product.index', compact(['product', 'relatedProducts']));
     }
 

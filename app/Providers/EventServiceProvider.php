@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CalcMoneyEvent;
 use App\Events\ProductView;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductView::class => [
             '\App\Listeners\IncreaseProductView'
+        ],
+        CalcMoneyEvent::class=>[
+            '\App\Listeners\CalculatingMoney'
         ]
     ];
 

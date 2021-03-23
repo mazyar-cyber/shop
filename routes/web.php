@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/payment/{id}", [App\Http\Controllers\FrontEnd\PaymentController::class, 'verify'])->name('payment.verify');
 });
 Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function () {
-    Route::resource('email',\App\Http\Controllers\admin\AdminEmailController::class);
+    Route::resource('email', \App\Http\Controllers\admin\AdminEmailController::class);
     Route::resource('order', \App\Http\Controllers\admin\AdminOrderController::class);
     Route::resource('users', AdminUserController::class);
     Route::resource('adminBaskets', \App\Http\Controllers\admin\AdminBasketContrller::class);
@@ -124,7 +124,10 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 //laravel ui
+Route::get('/testEvent', function () {
+    $price = event(new \App\Events\CalcMoneyEvent());
+    return $price;
+});
 
-//make change in routes
 
 
