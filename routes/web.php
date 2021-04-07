@@ -4,6 +4,7 @@ use App\Jobs\ChangeUserStatusJob;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminUserController;
 
@@ -131,13 +132,17 @@ Route::get('/testEvent', function () {
     return $price;
 });
 
-//Route::get('/testJob', function () {
-//    $user = Auth::user();
-//    $start = Carbon::now();
-//    $job = new ChangeUserStatusJob($user);
-//    $job->delay($start->addSeconds(50));
-//    dispatch($job);
-//});
+Route::get('/testApi', function () {
+//        $response=\Illuminate\Support\Facades\Http::get('https://covid-19-data.p.rapidapi.com/docs.json');
+    $response = Http::withHeaders([
+        "x-rapidapi-key" => "10b24b5db0msh7ffc2901247b998p1fcc1ajsn2a683745679b",
+        "x-rapidapi-host" => "community-open-weather-map.p.rapidapi.com",
+        "useQueryString" => true
+    ])->get('https://community-open-weather-map.p.rapidapi.com/weather', [
+        'query' => ['q' => 'Tehran,ir']
+    ]);
+    return ($response)->json();
+});
 
 
 
